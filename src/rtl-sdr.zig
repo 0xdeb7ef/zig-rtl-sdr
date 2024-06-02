@@ -467,7 +467,7 @@ pub const Device = struct {
             return error.SyncReadError;
         }
 
-        return read;
+        return @intCast(read);
     }
 
     /// Read samples from the device asynchronously. This function will block until
