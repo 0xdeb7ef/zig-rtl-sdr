@@ -15,12 +15,16 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
-    const rtlsdr = b.addModule("rtlsdr", .{
+    const rtlsdr = b.addModule("rtl-sdr", .{
         .root_source_file = b.path("src/rtl-sdr.zig"),
         .target = target,
         .optimize = optimize,
     });
-    _ = rtlsdr;
+
+    // we need libc
+    rtlsdr.link_libc = true;
+    // as this is a wrapper around rtl-sdr, we need to link it
+    rtlsdr.linkSystemLibrary("rtlsdr", .{});
 
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
