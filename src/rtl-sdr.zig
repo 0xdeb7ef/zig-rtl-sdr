@@ -469,18 +469,6 @@ pub const Device = struct {
     }
 
     /// Read samples from the device asynchronously. This function will block until
-    /// it is being canceled using rtlsdr_cancel_async()
-    ///
-    /// NOTE: This function is deprecated and is subject for removal.
-    // pub fn waitAsync(dev: Device, cb: void, ctx: void) void {
-    //     _ = dev;
-    //     _ = cb;
-    //     _ = ctx;
-
-    //     @compileError("deprecated");
-    // }
-
-    /// Read samples from the device asynchronously. This function will block until
     /// it is being canceled using `cancelAsync()`
     pub fn readAsync(
         dev: Device,
