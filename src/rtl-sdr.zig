@@ -455,7 +455,7 @@ pub const Device = struct {
         /// should be a multiple of 16384 (URB size),
         /// suggested default buffer length = (16 * 32 * 512)
         buf: []u8,
-    ) !void {
+    ) !u32 {
         if (buf.len % 512 != 0) {
             return error.SizeNotMultipleOf512;
         }
@@ -466,6 +466,8 @@ pub const Device = struct {
         if (err_no < 0) {
             return error.SyncReadError;
         }
+
+        return read;
     }
 
     /// Read samples from the device asynchronously. This function will block until

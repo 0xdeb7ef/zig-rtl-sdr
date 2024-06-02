@@ -54,7 +54,7 @@ pub fn main() !void {
     try dev.setSampleRate(2.4e6);
     try dev.setCenterFreq(92.5e6);
     try dev.setTunerGainMode(false);
-    try dev.resetBuffer(); // important to run before reading any samples
+    dev.resetBuffer(); // important to run before reading any samples
 
     // creating a buffer to store the samples
     var buffer: [512]u8 = undefined;
@@ -64,9 +64,9 @@ pub fn main() !void {
     _ = &z;
 
     // reading 512 samples in sync mode
-    try dev.readSync(buffer[z..]);
+    const read = try dev.readSync(buffer[z..]);
 
-    try stdout.print("Buffer: {any}\n", .{buffer});
+    try stdout.print("Buffer[{d}]: {any}\n", .{read, buffer});
     try bw.flush();
 }
 ```
